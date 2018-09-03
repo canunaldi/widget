@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <script src="https://js.jotform.com/JotFormCustomWidget.min.js"></script>
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+
+<<<<<<< HEAD
+=======
+
+>>>>>>> 255a2f5450c75729e112fe77fe900d1e689207ba
+</head>
+<body>
+    <style type="text/css">
+        #limitdivision{
+            background-color: #eee;
+            height: 500px;
+            width: 500px;
+        }
+        #image{
+            background-color: #aaa;
+            width: 300px;
+            height: 300px;
+            display:inline-block;
+        }
+        #imagediv{
+            background-color: lavender;
+            width: 400px;
+            height: 400px;
+        }
+    </style>
+    <div id="imagediv">
+        <img name="myimage" src="//:0" id="image">
+    </div>
+    
+    </div>
+    <input  type="file" id="imageFileInput" accept=".jpg, .jpeg, .png"/>
+    <input type='button' id='btnLoad' value='Load' onclick='showFileSize();'>
+
+
+    <script type="text/javascript">
+        var reader = new FileReader();
+    var limit = document.getElementById("limitdivision");
+    $(document).ready(function(){
+        $("#image").resizable({containment:limit, minHeight:50, minWidth:50});
+    });
+
+
+        function showFileSize() {
+            var imgElems = document.getElementsByTagName('image');
+
+
+                var url = imgElems.src || imgElems.href;
+
+            console.log("URL =  " + url);
+            console.log("imgelems.src =  " + imgElems.src);
+            console.log("imgelems.href =  " + imgElems.href);
+                if (url && url.length > 0)
+                {
+                    var iTime = performance.getEntriesByName(url)[0];
+                    console.log(iTime.transferSize); //or encodedBodySize, decodedBodySize
+                }
+
+            var input, file;
+
+            // (Can't use `typeof FileReader === "function"` because apparently
+            // it comes back as "object" on some browsers. So just see if it's there
+            // at all.)
+            if (!window.FileReader) {
+                bodyAppend("p", "The file API isn't supported on this browser yet.");
+                return;
+            }
+
+            input = document.getElementById('image');
+            if (!input) {
+                bodyAppend("p", "Um, couldn't find the fileinput element.");
+            }
+            else {
+                console.log(input);
+                file = input;
+                console.log(file);
+                bodyAppend("p", "File " + file.name + " is " + reader.result.length + " bytes in size");
+            }
+        }
+    function bodyAppend(tagName, innerHTML) {
+        var elm;
+
+        elm = document.createElement(tagName);
+        elm.innerHTML = innerHTML;
+        document.body.appendChild(elm);
+    }
+
+
+
+        $(document).resize( function(){
+
+            $(document.getElementById('imagediv')).width(document.getElementById('image').width);
+            $(document.getElementById('imagediv')).height(document.getElementById('image').height);
+             
+        });
+        document.getElementById('imageFileInput').addEventListener('change', function() {
+            var img = this.files[0];  
+            // Image is accessible using JavaScript
+            getBase64ImageUrl(img, function(getBase64ImageUrl) {
+                setImageUrl(getBase64ImageUrl);
+            });
+        }, false);
+
+        function setImageUrl(url) {
+            document.getElementById('image').setAttribute('src', url);
+        };
+
+        function getBase64ImageUrl(img, callback) {      
+
+            reader.readAsDataURL(img);
+            reader.onload = function() {
+                console.log(reader);
+                console.log("p", "File " + "Deneme" + " is " + reader.result.length+ " bytes in size");
+                callback && callback(reader.result);
+
+            };      
+            reader.onerror = function(error) {        
+                console.log('Error: ', error);      
+            };    
+        };
+    </script>
+    <script type="text/javascript">
+    JFCustomWidget.subscribe("ready", function(){
+                var label = JFCustomWidget.getWidgetSetting('QuestionLabel');
+                document.getElementById('labelText').innerHTML = label;
+                //subscribe to form submit event
+                JFCustomWidget.subscribe("submit", function(){
+                    var msg = {
+                        //you should valid attribute to data for JotForm
+                        //to be able to use youw widget as required
+                        valid: true,
+                        value: document.getElementById('imageFileInput').value
+                    }
+                    // send value to JotForm
+                    JFCustomWidget.sendSubmit(msg);
+                });
+            });
+    </script>
+    ​​​​</body>
+
+<<<<<<< HEAD
+</html>
+=======
+</html>
+>>>>>>> 255a2f5450c75729e112fe77fe900d1e689207ba
